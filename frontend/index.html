@@ -3,57 +3,111 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Caelum - Astro Hub</title>
+    <title>Caelum — Field Atlas of the Sky</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Space+Grotesk:wght@300;500&display=swap"
-      rel="family"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
     />
   </head>
   <body>
-    <div class="stars-overlay"></div>
+    <div class="grain"></div>
 
-    <header>
-      <h1>CAELUM</h1>
-      <p class="subtitle">Astro Hub // Exploration Portal</p>
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">✶</span>
+        <div>
+          <h1>Caelum</h1>
+          <p class="tagline">Field atlas of the sky</p>
+        </div>
+      </div>
+
+      <nav class="modules" aria-label="Observation modules">
+        <button class="module is-active" data-module="apod" type="button">
+          <span class="module-index">01</span> Picture of the Day
+        </button>
+        <button class="module" data-module="mars" type="button" disabled>
+          <span class="module-index">02</span> Mars Rover <em>soon</em>
+        </button>
+        <button class="module" data-module="earth" type="button" disabled>
+          <span class="module-index">03</span> Earth Imagery <em>soon</em>
+        </button>
+        <button class="module" data-module="neo" type="button" disabled>
+          <span class="module-index">04</span> Near-Earth Objects <em>soon</em>
+        </button>
+        <button class="module" data-module="iss" type="button" disabled>
+          <span class="module-index">05</span> ISS Tracker <em>soon</em>
+        </button>
+      </nav>
     </header>
 
     <main class="container">
-      <section class="search-section">
-        <h2>🌌 Astronomy Picture of the Day</h2>
-        <p>
-          What did the universe look like on your birthday? (Enter any date
-          since June 16, 1995)
-        </p>
-
+      <section class="control-deck" aria-label="Plate controls">
         <form id="search-form" class="search-form">
+          <label for="date-input">Observation date</label>
           <input type="date" id="date-input" min="1995-06-16" required />
-          <button type="submit" id="search-btn">Explore Space</button>
+          <button type="submit" id="search-btn" class="btn-primary">
+            Retrieve plate
+          </button>
         </form>
-        <div id="error-message" class="error-message hidden"></div>
-      </section>
 
-      <section id="apod-result" class="apod-result hidden">
-        <h3 id="apod-title">Nebula Title Placeholder</h3>
-        <div class="content-grid">
-          <div class="media-container" id="apod-media-box">
-            <img id="apod-image" src="" alt="Astronomy Picture" />
-          </div>
-          <div class="info-container">
-            <span class="date-badge" id="apod-date">YYYY-MM-DD</span>
-            <p id="apod-explanation">
-              Astronomy explanation text will dynamically load here when you
-              select a valid date...
-            </p>
-          </div>
+        <div class="deck-actions">
+          <button type="button" id="random-btn" class="btn-ghost">
+            <span aria-hidden="true">⟲</span> Random plate
+          </button>
+          <button
+            type="button"
+            id="favorite-btn"
+            class="btn-ghost"
+            aria-pressed="false"
+          >
+            <span class="fav-icon" aria-hidden="true">♡</span> Save plate
+          </button>
+          <a id="download-btn" class="btn-ghost" download>
+            <span aria-hidden="true">↓</span> Download HD
+          </a>
         </div>
       </section>
 
-      <div id="loader" class="loader hidden">Searching the cosmos...</div>
+      <div id="error-message" class="error-message hidden" role="alert"></div>
+      <div id="loader" class="loader hidden">Scanning the archive…</div>
+
+      <section id="apod-result" class="plate hidden">
+        <div class="plate-frame">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <div class="plate-media" id="apod-media-box">
+            <img id="apod-image" src="" alt="Astronomy Picture" />
+          </div>
+        </div>
+
+        <div class="plate-info">
+          <span class="plate-id" id="apod-date">PLATE — YYYY-MM-DD</span>
+          <h2 id="apod-title">Nebula Title Placeholder</h2>
+          <p id="apod-explanation">
+            Astronomy explanation text will load here once a date is chosen.
+          </p>
+          <p class="credit" id="apod-copyright"></p>
+        </div>
+      </section>
+
+      <section
+        class="favorites-rail"
+        id="favorites-rail"
+        aria-label="Saved plates"
+      >
+        <h3>Saved plates</h3>
+        <div class="rail-track" id="favorites-track">
+          <p class="rail-empty" id="favorites-empty">
+            Nothing saved yet. Save a plate to keep it here.
+          </p>
+        </div>
+      </section>
     </main>
 
-    <footer>
-      <p>Data powered by NASA API // Built with Flask & JS</p>
+    <footer class="site-footer">
+      <p>Data from NASA APOD · Built with Flask &amp; vanilla JS</p>
     </footer>
 
     <script src="js/api.js"></script>
