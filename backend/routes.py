@@ -7,7 +7,7 @@ from services.nasa import fetch_apod_data
 api_bp = Blueprint("api", __name__)
 
 
-@api_bp.route("/api/apod", method=["GET"])
+@api_bp.route("/api/apod", methods=["GET"])
 def get_apod():
     # grab 'date' parameter is the frontend send one (e.g, /api/apod?date=2022-10-25)
     target_date = request.args.get("date")

@@ -33,14 +33,14 @@ def fetch_apod_data(api_key, target_date_str=None):
             params["date"] = target_date_str
 
         except ValueError:  # fix this later (make the frontend input to a calendar type, not string input)
-            return {"error": "Invalid date format. Use DDDD-MM-DD."}, 400
+            return {"error": "Invalid date format. Use YYYY-MM-DD."}, 400
 
     try:
         response = requests.get(url, params=params)
 
         # if NASA returns a bad error (e.g bad API KEY)
         if response.status_code != 200:
-            return {f"error:NASA API error {response.reason}"}, response.status_code
+            return {"error": f"NASA API error: {response.reason}"}, response.status_code
 
         return response.json(), 200
 

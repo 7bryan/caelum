@@ -15,6 +15,10 @@ app = Flask(__name__)
 # Telling python to allow js frontend to talk to this backend
 CORS(app)
 
+from routes import api_bp
+
+app.register_blueprint(api_bp)
+
 
 # simple check route, making sure the backend is alive
 @app.route("/")
