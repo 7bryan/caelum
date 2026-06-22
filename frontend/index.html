@@ -3,21 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Caelum</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Caelum - Astro Hub</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Space+Grotesk:wght@300;500&display=swap"
+      rel="family"
+    />
   </head>
   <body>
+    <div class="stars-overlay"></div>
+
     <header>
-      <h1>Caelum</h1>
+      <h1>CAELUM</h1>
+      <p class="subtitle">Astro Hub // Exploration Portal</p>
     </header>
 
-    <main>
-      <p>main pages</p>
+    <main class="container">
+      <section class="search-section">
+        <h2>🌌 Astronomy Picture of the Day</h2>
+        <p>
+          What did the universe look like on your birthday? (Enter any date
+          since June 16, 1995)
+        </p>
+
+        <form id="search-form" class="search-form">
+          <input type="date" id="date-input" min="1995-06-16" required />
+          <button type="submit" id="search-btn">Explore Space</button>
+        </form>
+        <div id="error-message" class="error-message hidden"></div>
+      </section>
+
+      <section id="apod-result" class="apod-result hidden">
+        <h3 id="apod-title">Nebula Title Placeholder</h3>
+        <div class="content-grid">
+          <div class="media-container" id="apod-media-box">
+            <img id="apod-image" src="" alt="Astronomy Picture" />
+          </div>
+          <div class="info-container">
+            <span class="date-badge" id="apod-date">YYYY-MM-DD</span>
+            <p id="apod-explanation">
+              Astronomy explanation text will dynamically load here when you
+              select a valid date...
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div id="loader" class="loader hidden">Searching the cosmos...</div>
     </main>
 
     <footer>
-      <p>footer here</p>
+      <p>Data powered by NASA API // Built with Flask & JS</p>
     </footer>
-    <script src="script.js"></script>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
